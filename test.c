@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
         printarray(marked, size);
 
         // Only for process 0
-        if (BLOCK_OWNER(index, p, n))
+        if (id == BLOCK_OWNER(index, p, n))
         {
             while (!marked[++index])
             {
