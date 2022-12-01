@@ -96,12 +96,15 @@ int main(int argc, char *argv[])
         }
         printf("Debug from id %d: first=%d\n", id, first);
         for (i = first; i < size; i += prime)
+        {
             marked[i] = 1;
+        }
         if (!id)
         {
             while (marked[++index])
-                ;
-            prime = index + 2;
+            {
+                prime = index + 2;
+            }
         }
         MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
     } while (prime * prime <= n);
