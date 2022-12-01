@@ -147,6 +147,7 @@ int main(int argc, char *argv[])
         printarray(marked, size);
 
         int found_next_prime = 0;
+        int to_send = 0;
         while (!found_next_prime)
         {
             printf("************\n");
@@ -156,19 +157,28 @@ int main(int argc, char *argv[])
                 while (!marked[++index])
                 {
                     prime = index + 2;
-                    if (index == size)
+                    if (index >= size)
                     {
-                        printf("Debug from id %d: Attennd last index =%d\n", id, index);
+                        printf("Debug from id %d: index sup a la size last index =%d\n", id, index);
+                        to_send = 1;:
                         break;
                     }
                 }
-                printf("Debug from id %d: The next prime is =%d\n", id, prime);
-                found_next_prime = 1;
+                if (to_send)
+                {
+                    found_next_prime = 0;
+                }
+                else
+                {
+                    found_next_prime = 1;
+                    printf("Debug from id %d: The next prime is =%d\n", id, prime);
+                }
             }
             printf("************\n");
             MPI_Bcast(&found_next_prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
+            MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
         }
-        MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
     } while (prime * prime <= n);
 
     count = 0;
