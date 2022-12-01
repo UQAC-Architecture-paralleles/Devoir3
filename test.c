@@ -146,26 +146,6 @@ int main(int argc, char *argv[])
         printf("Debug from id %d: Array\n", id);
         printarray(marked, size);
 
-        int to_send = 0;
-        while (!to_send)
-        {
-            if (id == BLOCK_OWNER(index, p, n))
-            {
-                while (!marked[++index])
-                {
-                    printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
-                    prime = index + 2;
-                    if (index + 1 == size)
-                    {
-                        to_send = 1;
-                        break;
-                    }
-                    {
-                        /* code */
-                    }
-                }
-            }
-        }
         int found_next_prime = 0;
         while (!found_next_prime)
         {
