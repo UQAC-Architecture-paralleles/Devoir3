@@ -140,8 +140,8 @@ int main(int argc, char *argv[])
         {
             marked[i] = 1;
         }
-        printf("Debug from id %d: Array\n", id);
-        // printarray(marked, size);
+        // printf("Debug from id %d: Array\n", id);
+        //  printarray(marked, size);
 
         // Only for process 0
         if (!id)
