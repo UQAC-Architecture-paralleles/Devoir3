@@ -121,6 +121,7 @@ int main(int argc, char *argv[])
     do
     {
         printf("Debug from id %d: prime=%d\n", id, prime);
+        printf("Debug from id %d: index=%d\n", id, index);
         if (prime * prime > low_value)
         {
             first = prime * prime - low_value;
