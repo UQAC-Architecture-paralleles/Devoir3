@@ -149,8 +149,9 @@ int main(int argc, char *argv[])
         // Only for process 0
         if (id == BLOCK_OWNER(index, p, n))
         {
-            while (!marked[++index])
+            while (!marked[index - low_value])
             {
+                index++;
                 printf("Debug from id %d: index=%d\n", id, index);
                 prime = index + 2;
             }
