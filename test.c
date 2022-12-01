@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
     int n;
     int low_value;
     int high_value;
+    int size;
+    int proc0_size;
 
     double elapsed_time;
 
