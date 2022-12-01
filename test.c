@@ -1,7 +1,7 @@
 #include <mpi.h>
 #include <math.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int main(int argc, char *argv[])
