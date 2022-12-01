@@ -140,8 +140,8 @@ int main(int argc, char *argv[])
         {
             marked[i] = 1;
         }
-        printf("Debug from id %d: Array", id);
-        printf("Debug from id %d: first=%d\n", id, first);
+        printf("Debug from id %d: Array\n", id);
+        printarray(marked, size);
         if (!id)
         {
             while (marked[++index])
