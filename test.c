@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
 
             if (id == BLOCK_OWNER(index, p, n))
             {
-                while (!marked[++index])
+                while (marked[++index])
                 {
                     printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
                     prime = index + 2;
