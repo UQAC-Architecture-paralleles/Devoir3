@@ -149,15 +149,15 @@ int main(int argc, char *argv[])
         // Only for process 0
         if (id == BLOCK_OWNER(index, p, n))
         {
-            printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
+            printf("Debug - LOOOOL1 -  from id %d: index=%d\n", id, index);
             index += 1;
             while (!marked[index - low_value])
             {
-                printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
+                printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
                 prime = index + 2;
                 index++;
             }
-            printf("Debug - LOOOOL -  from id %d: prime=%d\n", id, prime);
+            printf("Debug - LOOOOL3 -  from id %d: prime=%d\n", id, prime);
         }
         printf("Debug from id %d:---------------------------------\n", id);
         MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
