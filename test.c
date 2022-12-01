@@ -11,7 +11,7 @@
 #define BLOCK_OWNER(index, p, n) ((((p) * (index) + 1) - 1) / (n))
 
 // Printing aray
-void printarray(int myarray[], int size)
+void printarray(char myarray[], int size)
 {
     printf("My array is [");
     if (size < 1000)
