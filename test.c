@@ -155,12 +155,12 @@ int main(int argc, char *argv[])
                 {
                     prime = index + 2;
                 }
-                printf("Debug -  from id %d: The next prime is =%d\n", id, prime);
+                printf("Debug from id %d: The next prime is =%d\n", id, prime);
                 found_next_prime = 1;
             }
         }
 
-        MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        // MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
         MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
     } while (prime * prime <= n);
 
