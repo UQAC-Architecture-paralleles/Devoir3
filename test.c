@@ -2,7 +2,16 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+#define BLOCK_LOW(id, p, n) ((i) * (n) / (p))
+#define BLOCK_HIGH(id, p, n) \
+    (BLOCK_LOW((id) + 1, p, n) - 1)
+#define BLOCK_SIZE(id, p, n) \
+    (BLOCK_LOW((id) + 1) - BLOCK_LOW(id))
+#define BLOCK_OWNER(index, p, n) \
+        (((p)*(index)+1)-1)/(n))
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +20,10 @@ int main(int argc, char *argv[])
     int i;
     int id;
     int p;
+
     int n;
+    int low_value;
+    int high_value;
 
     double elapsed_time;
 
