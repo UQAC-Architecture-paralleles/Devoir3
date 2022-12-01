@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
     prime = 2;
     do
     {
-        printf("Debug from id %d:---------------------------------", id);
+        printf("Debug from id %d:---------------------------------\n", id);
         printf("Debug from id %d: prime=%d\n", id, prime);
         printf("Debug from id %d: index=%d\n", id, index);
         if (prime * prime > low_value)
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
             }
             printf("Debug from id %d: prime=%d\n", id, prime);
         }
-        printf("Debug from id %d:---------------------------------", id);
+        printf("Debug from id %d:---------------------------------\n", id);
         MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     } while (prime * prime <= n);
