@@ -153,9 +153,9 @@ int main(int argc, char *argv[])
             index += 1;
             while (!marked[index])
             {
-                index++;
                 printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
                 prime = index + 2;
+                index++;
             }
             printf("Debug - LOOOOL -  from id %d: prime=%d\n", id, prime);
         }
