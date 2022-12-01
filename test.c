@@ -9,6 +9,7 @@
 #define BLOCK_HIGH(id, p, n) (BLOCK_LOW((id) + 1, p, n) - 1)
 #define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1, p, n) - BLOCK_LOW(id, p, n))
 #define BLOCK_OWNER(index, p, n) ((((p) * (index) + 1) - 1) / (n))
+#define BLOCK_OWNERINDEX(index, p, n) ((((p) * (index) + 1) - 3) / (n))
 
 // Printing aray
 void printarray(int myarray[], int size)
@@ -152,7 +153,7 @@ int main(int argc, char *argv[])
         while (!found_next_prime)
         {
             printf("*************\n");
-            if (id == BLOCK_OWNER(index, p, n))
+            if (() || (id == BLOCK_OWNER(index, p, n)))
             {
                 printf("Debug from id %d: I check value index =%d\n", id, index + 1);
                 while (!marked[++index])
