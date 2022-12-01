@@ -6,12 +6,20 @@
 
 int main(int argc, char *argv[])
 {
+    int count;
+    int global_count;
+    int i;
+    int id;
+    int p;
+
+    double elapsed_time;
 
     MPI_Init(&argc, &argv);
     MPI_Barrier(MPI_COMM_WORLD);
     elapsed_time = -MPI_Wtime();
     MPI_Comm_rank(MPI_COMM_WORLD, &id);
     MPI_Comm_size(MPI_COMM_WORLD, &p);
+
     if (argc != 2)
     {
         if (!id)
