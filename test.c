@@ -11,7 +11,7 @@
 #define BLOCK_OWNER(index, p, n) ((((p) * (index) + 1) - 1) / (n))
 
 // Printing aray
-void printarray(char myarray[], int size)
+void printarray(int myarray[], int size)
 {
     printf("My array is [");
     if (size < 1000)
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     int first;
 
     double elapsed_time;
-    char *marked;
+    int *marked;
 
     MPI_Init(&argc, &argv);
     MPI_Barrier(MPI_COMM_WORLD);
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
         MPI_Finalize();
         exit(1);
     }
-    marked = (char *)malloc(size);
+    marked = (int *)malloc(size);
     if (marked == NULL)
     {
         printf("Cannot allocate enough memory\n");
@@ -141,14 +141,18 @@ int main(int argc, char *argv[])
             marked[i] = 1;
         }
         printf("Debug from id %d: Array\n", id);
-        printarray(marked, size);
+        // printarray(marked, size);
+
+        // Only for process 0
         if (!id)
         {
             while (marked[++index])
             {
                 prime = index + 2;
             }
+            printf("Debug from id %d: prime=%d\n", id, prime);
         }
+
         MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
     } while (prime * prime <= n);
 
