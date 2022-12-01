@@ -10,6 +10,47 @@
 #define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1, p, n) - BLOCK_LOW(id, p, n))
 #define BLOCK_OWNER(index, p, n) ((((p) * (index) + 1) - 1) / (n))
 
+// Printing aray
+void printarray(int myarray[], int size)
+{
+    printf("My array is [");
+    if (size < 1000)
+    {
+        int i;
+        for (i = 0; i < size; i++)
+        {
+            printf("%d", myarray[i]);
+            if (i != size - 1)
+            {
+                printf(",");
+            }
+        }
+        printf("]\n");
+    }
+    else
+    {
+        int i;
+        for (i = 0; i < 100; i++)
+        {
+            printf("%d", myarray[i]);
+            if (i != size - 1)
+            {
+                printf(",");
+            }
+        }
+        printf(" ... ");
+        for (i = size - 100; i < size; i++)
+        {
+            printf("%d", myarray[i]);
+            if (i != size - 1)
+            {
+                printf(",");
+            }
+        }
+        printf("]\n");
+    }
+}
+
 int main(int argc, char *argv[])
 {
     int count;
@@ -99,6 +140,8 @@ int main(int argc, char *argv[])
         {
             marked[i] = 1;
         }
+        printf("Debug from id %d: Array", id);
+        printf("Debug from id %d: first=%d\n", id, first);
         if (!id)
         {
             while (marked[++index])
@@ -119,7 +162,7 @@ int main(int argc, char *argv[])
     if (!id)
     {
         printf("%d primes are less than or equal to %d\n", global_count, n);
-        printf("Total elapsed time: %10.6f\n", elapsed_time);
+        printarray(marked, size);
     }
     MPI_Finalize();
     return 0;
