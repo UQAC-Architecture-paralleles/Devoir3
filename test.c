@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
         {
             printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
             index += 1;
-            while (!marked[index])
+            while (!marked[index - low_value])
             {
                 printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
                 prime = index + 2;
