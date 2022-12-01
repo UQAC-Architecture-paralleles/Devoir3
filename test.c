@@ -148,7 +148,8 @@ int main(int argc, char *argv[])
         // Only for process 0
         if (!id)
         {
-            while (marked[++index])
+
+            while (!marked[++index])
             {
                 printf("Debug from id %d: index=%d\n", id, index);
                 prime = index + 2;
