@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
                     if (index >= size)
                     {
                         printf("Debug from id %d: index sup a la size last index =%d\n", id, index);
-                        to_send = 1;:
+                        to_send = 1;
                         break;
                     }
                 }
