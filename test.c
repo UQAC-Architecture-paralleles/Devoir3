@@ -151,6 +151,7 @@ int main(int argc, char *argv[])
         {
             if (id == BLOCK_OWNER(index, p, n))
             {
+                printf("Debug from id %d: I check value index =%d\n", id, index + 1);
                 while (!marked[++index])
                 {
                     prime = index + 2;
