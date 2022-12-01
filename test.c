@@ -24,6 +24,10 @@ int main(int argc, char *argv[])
     int size;
     int proc0_size;
 
+    int index;
+    int prime;
+    int first;
+
     double elapsed_time;
     char *marked;
 
