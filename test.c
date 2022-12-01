@@ -150,6 +150,7 @@ int main(int argc, char *argv[])
         {
             while (marked[++index])
             {
+                printf("Debug from id %d: index=%d\n", id, index);
                 prime = index + 2;
             }
             printf("Debug from id %d: prime=%d\n", id, prime);
