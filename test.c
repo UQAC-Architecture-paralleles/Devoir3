@@ -156,6 +156,11 @@ int main(int argc, char *argv[])
                 while (!marked[++index])
                 {
                     prime = index + 2;
+                    if (index + 1 == size)
+                    {
+                        printf("Debug from id %d: Attennd last index =%d\n", id, index);
+                        break;
+                    }
                 }
                 printf("Debug from id %d: The next prime is =%d\n", id, prime);
                 found_next_prime = 1;
