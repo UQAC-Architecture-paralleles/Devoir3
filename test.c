@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
     printf("Debug from id %d: size=%d\n", id, size);
     printf("index 5: %d <m>\n", BLOCK_OWNER(5, p, n));
     printf("index 6: %d <m>\n", BLOCK_OWNER(6, p, n));
-
+    printf("index 0: %d <m>\n", BLOCK_OWNER(6, p, n));
     proc0_size = (n - 1) / p;
     if ((2 + proc0_size) < (int)sqrt((double)n))
     {
