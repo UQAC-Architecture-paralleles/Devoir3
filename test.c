@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
         int found_next_prime = 0;
         while (!found_next_prime)
         {
-            printf("efr\n");
+            printf("************\n");
             if (id == BLOCK_OWNER(index, p, n))
             {
                 printf("Debug from id %d: I check value index =%d\n", id, index + 1);
@@ -165,6 +165,7 @@ int main(int argc, char *argv[])
                 printf("Debug from id %d: The next prime is =%d\n", id, prime);
                 found_next_prime = 1;
             }
+            printf("************\n");
             MPI_Bcast(&found_next_prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
         }
         MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
