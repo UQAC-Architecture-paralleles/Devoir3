@@ -48,9 +48,10 @@ int main(int argc, char *argv[])
     }
 
     n = atoi(argv[1]);
-    printf("Debug: %d <m>\n", n);
+    printf("Debug: %d , from id %d\n", n, id);
     low_value = 2 + BLOCK_LOW(id, p, n - 1);
     high_value = 2 + BLOCK_HIGH(id, p, n - 1);
+
     size = BLOCK_SIZE(id, p, n - 1);
     proc0_size = (n - 1) / p;
     if ((2 + proc0_size) < (int)sqrt((double)n))
