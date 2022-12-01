@@ -149,7 +149,6 @@ int main(int argc, char *argv[])
         int to_send = 0;
         while (!to_send)
         {
-
             if (id == BLOCK_OWNER(index, p, n))
             {
                 while (marked[++index])
