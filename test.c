@@ -150,7 +150,8 @@ int main(int argc, char *argv[])
         if (id == BLOCK_OWNER(index, p, n))
         {
             printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
-            while (!marked[index + 1])
+            index += 1;
+            while (!marked[index])
             {
                 index++;
                 printf("Debug - LOOOOL -  from id %d: index=%d\n", id, index);
