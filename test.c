@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
                 while (!marked[++index])
                 {
                     prime = index + 2;
-                    if (index + 1 == size)
+                    if (index == size)
                     {
                         printf("Debug from id %d: Attennd last index =%d\n", id, index);
                         break;
