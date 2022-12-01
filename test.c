@@ -147,8 +147,10 @@ int main(int argc, char *argv[])
         printarray(marked, size);
 
         int to_send = 0;
-        while (!to_send)
+        int found_value = 0;
+        while (!to_send || found_value)
         {
+            found_value = 0;
             if (id == BLOCK_OWNER(index, p, n))
             {
                 printf("Debug - LOOOOL1 -  from id %d: index=%d\n", id, index);
@@ -162,6 +164,7 @@ int main(int argc, char *argv[])
                         break;
                     }
                 }
+                found_value++;
             }
             if (to_send)
             {
