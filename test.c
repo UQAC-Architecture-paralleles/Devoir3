@@ -82,16 +82,19 @@ int main(int argc, char *argv[])
         if (prime * prime > low_value)
         {
             first = prime * prime - low_value;
-            printf("Debug from id %d: first=%d\n", id, first);
         }
-
         else
         {
             if (!(low_value % prime))
+            {
                 first = 0;
+            }
             else
+            {
                 first = prime - (low_value % prime);
+            }
         }
+        printf("Debug from id %d: first=%d\n", id, first);
         for (i = first; i < size; i += prime)
             marked[i] = 1;
         if (!id)
