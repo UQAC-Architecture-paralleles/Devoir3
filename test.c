@@ -146,11 +146,33 @@ int main(int argc, char *argv[])
         printf("Debug from id %d: Array\n", id);
         printarray(marked, size);
 
-        // Only for process 0
+        int to_send = 0;
+        while (!to_send)
+        {
+
+            if (id == BLOCK_OWNER(index, p, n))
+            {
+                while (!marked[++index])
+                {
+                    printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
+                    prime = index + 2;
+                    if (index + 1 == size)
+                    {
+                        to_send = 1;
+                        break;
+                    }
+                }
+            }
+            if (to_send)
+            {
+                MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
+                to_send = 0;
+            }
+        }
+
         if (id == BLOCK_OWNER(index, p, n))
         {
             printf("Debug - LOOOOL1 -  from id %d: index=%d\n", id, index);
-            // int local_index = index - (low_value - 2);
             while (!marked[++index])
             {
                 printf("Debug - LOOOOL2 -  from id %d: local_index=%d\n", id, index);
