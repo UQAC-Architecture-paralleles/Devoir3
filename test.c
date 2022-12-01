@@ -158,8 +158,8 @@ int main(int argc, char *argv[])
                 }
                 printf("Debug from id %d: The next prime is =%d\n", id, prime);
                 found_next_prime = 1;
-                MPI_Bcast(&found_next_prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
             }
+            MPI_Bcast(&found_next_prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
         }
 
         // MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
