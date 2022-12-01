@@ -115,8 +115,8 @@ int main(int argc, char *argv[])
 
     for (i = 0; i < size; i++)
         marked[i] = 0;
-    if (!id)
-        index = 0;
+
+    index = 0;
     prime = 2;
     do
     {
@@ -147,9 +147,8 @@ int main(int argc, char *argv[])
         printarray(marked, size);
 
         // Only for process 0
-        if (!id)
+        if (BLOCK_OWNER(index, p, n))
         {
-
             while (!marked[++index])
             {
                 printf("Debug from id %d: index=%d\n", id, index);
@@ -159,7 +158,7 @@ int main(int argc, char *argv[])
         }
         printf("Debug from id %d:---------------------------------\n", id);
         MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
+        MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
     } while (prime * prime <= n);
 
     count = 0;
