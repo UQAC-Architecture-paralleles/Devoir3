@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     int proc0_size;
 
     double elapsed_time;
+    char *marked;
 
     MPI_Init(&argc, &argv);
     MPI_Barrier(MPI_COMM_WORLD);
