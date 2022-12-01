@@ -175,8 +175,8 @@ int main(int argc, char *argv[])
                 }
             }
             printf("************\n");
-            MPI_Bcast(&found_next_prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
-            MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
+            MPI_Bcast(&found_next_prime, 1, MPI_INT, BLOCK_OWNER(index, p, n), MPI_COMM_WORLD);
+            MPI_Bcast(&index, 1, MPI_INT, BLOCK_OWNER(index, p, n), MPI_COMM_WORLD);
         }
 
     } while (prime * prime <= n);
