@@ -151,6 +151,7 @@ int main(int argc, char *argv[])
         {
             if (id == BLOCK_OWNER(index, p, n))
             {
+                printf("Debug - LOOOOL1 -  from id %d: index=%d\n", id, index);
                 while (marked[++index])
                 {
                     printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
