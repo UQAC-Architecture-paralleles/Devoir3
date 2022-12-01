@@ -8,15 +8,15 @@
 #define BLOCK_LOW(id, p, n) (((id) * (n)) / (p))
 #define BLOCK_HIGH(id, p, n) (BLOCK_LOW((id) + 1, p, n) - 1)
 #define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1, p, n) - BLOCK_LOW(id, p, n))
-#define BLOCK_OWNER(index, p, n) ((((p) * (index + 1) + 1) - 1) / (n))
+#define BLOCK_OWNER(index, p, n) ((((p)*index + 1) - 1) / (n))
 
 // Printing aray
-void printarray(int myarray[], int size)
+void printarray(char myarray[], int size)
 {
     printf("My array is [");
     if (size < 1000)
     {
-        int i;
+        char i;
         for (i = 0; i < size; i++)
         {
             printf("%d", myarray[i]);
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     int first;
 
     double elapsed_time;
-    int *marked;
+    char *marked;
 
     MPI_Init(&argc, &argv);
     MPI_Barrier(MPI_COMM_WORLD);
@@ -91,12 +91,8 @@ int main(int argc, char *argv[])
     low_value = 2 + BLOCK_LOW(id, p, n - 1);
     high_value = 2 + BLOCK_HIGH(id, p, n - 1);
     size = BLOCK_SIZE(id, p, n - 1);
-
-    printf("Id %d: low_value=%d\n", id, low_value);
-    printf("Id %d: high_value=%d\n", id, high_value);
-    printf("Id %d: size=%d\n", id, size);
-
     proc0_size = (n - 1) / p;
+
     if ((2 + proc0_size) < (int)sqrt((double)n))
     {
         if (!id)
@@ -104,7 +100,7 @@ int main(int argc, char *argv[])
         MPI_Finalize();
         exit(1);
     }
-    marked = (int *)malloc(size);
+    marked = (char *)malloc(size * sizeof(char));
     if (marked == NULL)
     {
         printf("Cannot allocate enough memory\n");
@@ -115,12 +111,13 @@ int main(int argc, char *argv[])
     for (i = 0; i < size; i++)
         marked[i] = 0;
 
-    index = 0;
+    if (!id)
+        index = 0;
+
     prime = 2;
     do
     {
-        printf("*******ENTER IN FOUND DO LOOP %d******\n", id);
-        printf("Id %d: Current index =%d\n", id, index);
+
         if (prime * prime > low_value)
         {
             first = prime * prime - low_value;
@@ -142,10 +139,6 @@ int main(int argc, char *argv[])
             marked[i] = 1;
         }
 
-        printarray(marked, size);
-
-        int found_next_prime = 0;
-        int to_send = 0;
         if (!id)
         {
             while (marked[++index])
@@ -155,17 +148,42 @@ int main(int argc, char *argv[])
         MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
     } while (prime * prime <= n);
 
+    // First step we compute the local twin number
     count = 0;
-    for (i = 0; i < size; i++)
-        if (!marked[i])
+    for (i = 0; i + 2 < size; i++)
+    {
+        if (i + 2 < size)
+        {
+            if (!marked[i] && !marked[i + 2])
+                count++;
+        }
+    }
+
+    // Second step we send the 2 last value to the next process
+    int last_last_index = marked[size - 2];
+    int last_index = marked[size - 1];
+    if (id != p - 1)
+    {
+        MPI_Send(&last_last_index, 1, MPI_INT, id + 1, 0, MPI_COMM_WORLD);
+        MPI_Send(&last_index, 1, MPI_INT, id + 1, 1, MPI_COMM_WORLD);
+    }
+
+    // Third step we receive the 2 last value from the before process
+    if (id != 0)
+    {
+        MPI_Recv(&last_last_index, 1, MPI_INT, id - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(&last_index, 1, MPI_INT, id - 1, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        if (!last_last_index && !marked[0])
             count++;
-    MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM,
-               0, MPI_COMM_WORLD);
+        if (!last_index && !marked[1])
+            count++;
+    }
+
+    MPI_Reduce(&count, &global_count, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     elapsed_time += MPI_Wtime();
     if (!id)
     {
-        printf("%d primes are less than or equal to %d\n", global_count, n);
-        printarray(marked, size);
+        printf("%d primes twin are less than or equal to %d\n", global_count, n);
     }
     MPI_Finalize();
     return 0;
