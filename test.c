@@ -53,9 +53,9 @@ int main(int argc, char *argv[])
     high_value = 2 + BLOCK_HIGH(id, p, n - 1);
     size = BLOCK_SIZE(id, p, n - 1);
 
-    printf("Debug from id %d: low_value=\n", id, low_value);
-    printf("Debug from id %d: high_value=\n", id, high_value);
-    printf("Debug from id %d: size=\n", id, size);
+    printf("Debug from id %d: low_value=%d\n", id, low_value);
+    printf("Debug from id %d: high_value=%d\n", id, high_value);
+    printf("Debug from id %d: size=%d\n", id, size);
 
     proc0_size = (n - 1) / p;
     if ((2 + proc0_size) < (int)sqrt((double)n))
