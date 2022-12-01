@@ -87,7 +87,6 @@ int main(int argc, char *argv[])
         MPI_Finalize();
         exit(1);
     }
-
     n = atoi(argv[1]);
     low_value = 2 + BLOCK_LOW(id, p, n - 1);
     high_value = 2 + BLOCK_HIGH(id, p, n - 1);
@@ -96,6 +95,7 @@ int main(int argc, char *argv[])
     printf("Debug from id %d: low_value=%d\n", id, low_value);
     printf("Debug from id %d: high_value=%d\n", id, high_value);
     printf("Debug from id %d: size=%d\n", id, size);
+    printf("index 5: %d <m>\n", BLOCK_OWNER(index, p, n));
 
     proc0_size = (n - 1) / p;
     if ((2 + proc0_size) < (int)sqrt((double)n))
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
         int to_send = 0;
         while (!found_next_prime)
         {
-            printf("************\n");
+            printf("*************\n");
             if (id == BLOCK_OWNER(index, p, n))
             {
                 printf("Debug from id %d: I check value index =%d\n", id, index + 1);
