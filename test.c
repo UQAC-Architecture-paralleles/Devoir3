@@ -8,8 +8,7 @@
 #define BLOCK_LOW(id, p, n) (((id) * (n)) / (p))
 #define BLOCK_HIGH(id, p, n) (BLOCK_LOW((id) + 1, p, n) - 1)
 #define BLOCK_SIZE(id, p, n) (BLOCK_LOW((id) + 1, p, n) - BLOCK_LOW(id, p, n))
-#define BLOCK_OWNER(index, p, n) ((((p) * (index) + 1) - 1) / (n))
-#define BLOCK_OWNERINDEX(index, p, n) ((((p) * (index) + 1) - 3) / (n))
+#define BLOCK_OWNER(index, p, n) ((((p) * (index + 1) + 1) - 1) / (n))
 
 // Printing aray
 void printarray(int myarray[], int size)
@@ -93,12 +92,10 @@ int main(int argc, char *argv[])
     high_value = 2 + BLOCK_HIGH(id, p, n - 1);
     size = BLOCK_SIZE(id, p, n - 1);
 
-    printf("Debug from id %d: low_value=%d\n", id, low_value);
-    printf("Debug from id %d: high_value=%d\n", id, high_value);
-    printf("Debug from id %d: size=%d\n", id, size);
-    printf("index 5: %d <m>\n", BLOCK_OWNER(5, p, n));
-    printf("index 6: %d <m>\n", BLOCK_OWNER(6, p, n));
-    printf("index 0: %d <m>\n", BLOCK_OWNER(0, p, n));
+    printf("Id %d: low_value=%d\n", id, low_value);
+    printf("Id %d: high_value=%d\n", id, high_value);
+    printf("Id %d: size=%d\n", id, size);
+
     proc0_size = (n - 1) / p;
     if ((2 + proc0_size) < (int)sqrt((double)n))
     {
@@ -122,9 +119,8 @@ int main(int argc, char *argv[])
     prime = 2;
     do
     {
-        printf("Debug from id %d:---------------------------------\n", id);
-        printf("Debug from id %d: prime=%d\n", id, prime);
-        printf("Debug from id %d: index=%d\n", id, index);
+        printf("*******ENTER IN FOUND DO LOOP %d******\n", id);
+        printf("Id %d: Current index =%d\n", id, index);
         if (prime * prime > low_value)
         {
             first = prime * prime - low_value;
@@ -140,47 +136,23 @@ int main(int argc, char *argv[])
                 first = prime - (low_value % prime);
             }
         }
-        printf("Debug from id %d: first=%d\n", id, first);
+
         for (i = first; i < size; i += prime)
         {
             marked[i] = 1;
         }
-        printf("Debug from id %d: Array\n", id);
+
         printarray(marked, size);
 
         int found_next_prime = 0;
         int to_send = 0;
-        while (!found_next_prime)
+        if (!id)
         {
-            printf("*************\n");
-            if (() || (id == BLOCK_OWNER(index, p, n)))
-            {
-                printf("Debug from id %d: I check value index =%d\n", id, index + 1);
-                while (!marked[++index])
-                {
-                    prime = index + 2;
-                    if (index >= size)
-                    {
-                        printf("Debug from id %d: index sup a la size last index =%d\n", id, index);
-                        to_send = 1;
-                        break;
-                    }
-                }
-                if (to_send)
-                {
-                    found_next_prime = 0;
-                }
-                else
-                {
-                    found_next_prime = 1;
-                    printf("Debug from id %d: The next prime is =%d\n", id, prime);
-                }
-            }
-            printf("************\n");
-            MPI_Bcast(&found_next_prime, 1, MPI_INT, BLOCK_OWNER(index, p, n), MPI_COMM_WORLD);
-            MPI_Bcast(&index, 1, MPI_INT, BLOCK_OWNER(index, p, n), MPI_COMM_WORLD);
+            while (marked[++index])
+                ;
+            prime = index + 2;
         }
-
+        MPI_Bcast(&prime, 1, MPI_INT, 0, MPI_COMM_WORLD);
     } while (prime * prime <= n);
 
     count = 0;
