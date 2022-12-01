@@ -150,12 +150,11 @@ int main(int argc, char *argv[])
         if (id == BLOCK_OWNER(index, p, n))
         {
             printf("Debug - LOOOOL1 -  from id %d: index=%d\n", id, index);
-            index += 1;
-            while (!marked[index - low_value])
+            int local_index = index - low_value;
+            while (!marked[++local_index])
             {
-                printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
+                printf("Debug - LOOOOL2 -  from id %d: local_index=%d\n", id, local_index);
                 prime = index + 2;
-                index++;
             }
             printf("Debug - LOOOOL3 -  from id %d: prime=%d\n", id, prime);
         }
