@@ -147,14 +147,11 @@ int main(int argc, char *argv[])
         printarray(marked, size);
 
         int to_send = 0;
-        int found_value = 0;
-        while (!to_send || found_value)
+        while (!to_send)
         {
-            found_value = 0;
             if (id == BLOCK_OWNER(index, p, n))
             {
-                printf("Debug - LOOOOL1 -  from id %d: index=%d\n", id, index);
-                while (marked[++index])
+                while (!marked[++index])
                 {
                     printf("Debug - LOOOOL2 -  from id %d: index=%d\n", id, index);
                     prime = index + 2;
@@ -163,13 +160,23 @@ int main(int argc, char *argv[])
                         to_send = 1;
                         break;
                     }
+                    {
+                        /* code */
+                    }
                 }
-                found_value++;
             }
-            if (to_send)
+        }
+        int found_next_prime = 0;
+        while (!found_next_prime)
+        {
+            if (id == BLOCK_OWNER(index, p, n))
             {
-                MPI_Bcast(&index, 1, MPI_INT, 0, MPI_COMM_WORLD);
-                to_send = 0;
+                while (!marked[++index])
+                {
+                    prime = index + 2;
+                }
+                printf("Debug -  from id %d: The next prime is =%d\n", id, prime);
+                found_next_prime = 1;
             }
         }
 
