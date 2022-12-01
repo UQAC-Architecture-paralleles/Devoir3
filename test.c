@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     int i;
     int id;
     int p;
+    int n;
 
     double elapsed_time;
 
